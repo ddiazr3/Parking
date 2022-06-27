@@ -4,7 +4,7 @@
     <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
       <!-- Card stats -->
 
-      <router-link to="/usuarios/create" aria-current="page" class="btn btn-warning h4 mb-0 text-white  d-none d-lg-inline-block active router-link-active">
+      <router-link to="/usuarios/create" aria-current="page" class="btn btn-warning h4 text-white  router-link-active">
         Usuario Nuevo
         <span class="btn-inner--icon">
                   <i class="fas fa-plus"></i>
