@@ -19,10 +19,14 @@ import DashboardPlugin from './plugins/dashboard-plugin';
 import App from './App.vue';
 import store from './store'
 import moment from 'moment'
+import SocketIo from 'socket.io-client'
+import VueSocketIo from 'vue-socket.io'
 
 // router setup
 import router from './routes/router';
 
+export const Socket = SocketIo(`http://localhost:3001`)
+Vue.use(VueSocketIo, Socket)
 moment.locale('es')
 
 // plugin setup
