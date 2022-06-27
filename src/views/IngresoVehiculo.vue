@@ -1,0 +1,262 @@
+<template>
+<div>
+
+    <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
+        <!-- Card stats -->
+    </base-header>
+
+    <!--Charts-->
+    <b-container fluid class="mt--7">
+        <card>
+            <b-row slot="header">
+                <b-col lg="5">
+                    <base-input label="Tipo Placa">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </base-input>
+                </b-col>
+                <b-col lg="5">
+                    <base-input type="text" label="Placa" placeholder="Placa (ABC-1234)"></base-input>
+                </b-col>
+                <b-col lg="2">
+                    <br>
+                    <base-button type="info">Ingresar</base-button>
+                </b-col>
+            </b-row>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered" id="datatable">
+                    <thead>
+                        <tr>
+                            <th>Salir</th>
+                            <th>Placa</th>
+                            <th>Entrada</th>
+                            <th>Salida</th>
+                            <th>Min. Trascurridos</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>ABC-1234</td>
+                            <td>26/06/2022 14:25:00</td>
+                            <td>26/06/2022 16:25:00</td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <base-button icon type="warning" size="sm">
+                                    <span class="btn-inner--icon">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </span>
+                                </base-button>
+                            </td>
+                            <td>DEF-4568</td>
+                            <td>26/06/2022 134:25:00</td>
+                            <td></td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>ABC-1234</td>
+                            <td>26/06/2022 14:25:00</td>
+                            <td>26/06/2022 16:25:00</td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <base-button icon type="warning" size="sm">
+                                    <span class="btn-inner--icon">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </span>
+                                </base-button>
+                            </td>
+                            <td>DEF-4568</td>
+                            <td>26/06/2022 134:25:00</td>
+                            <td></td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>ABC-1234</td>
+                            <td>26/06/2022 14:25:00</td>
+                            <td>26/06/2022 16:25:00</td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <base-button icon type="warning" size="sm">
+                                    <span class="btn-inner--icon">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </span>
+                                </base-button>
+                            </td>
+                            <td>DEF-4568</td>
+                            <td>26/06/2022 134:25:00</td>
+                            <td></td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>ABC-1234</td>
+                            <td>26/06/2022 14:25:00</td>
+                            <td>26/06/2022 16:25:00</td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <base-button icon type="warning" size="sm">
+                                    <span class="btn-inner--icon">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </span>
+                                </base-button>
+                            </td>
+                            <td>DEF-4568</td>
+                            <td>26/06/2022 134:25:00</td>
+                            <td></td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>ABC-1234</td>
+                            <td>26/06/2022 14:25:00</td>
+                            <td>26/06/2022 16:25:00</td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <base-button icon type="warning" size="sm">
+                                    <span class="btn-inner--icon">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </span>
+                                </base-button>
+                            </td>
+                            <td>DEF-4568</td>
+                            <td>26/06/2022 134:25:00</td>
+                            <td></td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>ABC-1234</td>
+                            <td>26/06/2022 14:25:00</td>
+                            <td>26/06/2022 16:25:00</td>
+                            <td>01:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <base-button icon type="warning" size="sm">
+                                    <span class="btn-inner--icon">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </span>
+                                </base-button>
+                            </td>
+                            <td>DEF-4568</td>
+                            <td>26/06/2022 134:25:00</td>
+                            <td></td>
+                            <td>01:00:00</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </card>
+        <!-- End charts-->
+
+    </b-container>
+
+</div>
+</template>
+
+<script>
+// Charts
+import * as chartConfigs from '@/components/Charts/config';
+import EditProfileForm from './Pages/UserProfile/EditProfileForm.vue';
+import Card from '../components/Cards/Card.vue';
+import BaseInput from '../components/Inputs/BaseInput.vue';
+import BaseButton from '../components/BaseButton.vue';
+
+
+import "jszip/dist/jszip.min.js";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import "datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+import "datatables.net-bs4/js/dataTables.bootstrap4"
+import "datatables.net-buttons-dt/js/buttons.dataTables";
+import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
+import "datatables.net-buttons/js/buttons.html5.min.js";
+import "datatables.net-buttons/js/buttons.html5";
+import "datatables.net-buttons/js/buttons.print";
+import "datatables.net-buttons/js/dataTables.buttons";
+import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
+
+
+import $ from "jquery";
+
+export default {
+    components: {
+        EditProfileForm,
+        Card,
+        BaseInput,
+        BaseButton
+    },
+    data() {
+        return {};
+    },
+    methods: {
+
+    },
+    mounted() {
+        var datatable = $("#datatable").DataTable({
+            "language": {
+                "lengthMenu": "Cantidad _MENU_ Paginas",
+                "zeroRecords": "Nothing found - sorry",
+                "info": "No. de pagina _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay informacion",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search": "Buscar",
+                "emptyTable": "No hay informacion",
+                "paginate": {
+                    "first": "Inicio",
+                    "last": "Fin",
+                    "next": ">",
+                    "previous": "<"
+                },
+                "bDestroy": true,
+                "bSort": false,
+            },
+            dom: 'Bfrtip',
+            buttons: [
+            'copyHtml5',
+            'excel',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+        });
+
+        /* new $.fn.dataTable.Buttons(table, {
+             buttons: [
+                 'copy', 'excel', 'pdf'
+             ]
+         });
+
+         table.buttons().container()
+             .appendTo($('.col-sm-6:eq(0)', table.table().container()));*/
+    }
+};
+</script>
+
+<style>
+.el-table .cell {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+</style>
