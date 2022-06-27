@@ -7,22 +7,24 @@
 
             </navbar-toggle-button>
             <router-link class="navbar-brand" to="/">
-              <h3 class="text-dark">TIME Parking</h3>
+              <h3 class="text-dark">TIME Parking - {{ hora }}</h3>
             </router-link>
 
             <slot name="mobile-right">
                 <ul class="nav align-items-center d-md-none">
-                    <base-dropdown class="nav-item" menu-on-right tag="li" title-tag="a">
-                        <a slot="title-container" class="nav-link nav-link-icon" href="#" role="button"
-                           aria-haspopup="true" aria-expanded="false">
-                            <i class="ni ni-bell-55"></i>
-                        </a>
 
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </base-dropdown>
+<!--                    <base-dropdown class="nav-item" menu-on-right tag="li" title-tag="a">-->
+<!--                        <a slot="title-container" class="nav-link nav-link-icon" href="#" role="button"-->
+<!--                           aria-haspopup="true" aria-expanded="false">-->
+<!--                            <i class="ni ni-bell-55"></i>-->
+<!--                        </a>-->
+
+<!--                        <a class="dropdown-item" href="#">Action</a>-->
+<!--                        <a class="dropdown-item" href="#">Another action</a>-->
+<!--                        <div class="dropdown-divider"></div>-->
+<!--                        <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                    </base-dropdown>-->
+
                     <base-dropdown class="nav-item" menu-on-right tag="li" title-tag="a">
                         <a slot="title-container" class="nav-link" href="#" role="button">
                             <div class="media align-items-center">
@@ -33,28 +35,16 @@
                         </a>
 
                         <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
+                            <h6 class="text-overflow m-0">Bienvenido!</h6>
                         </div>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
-                        </router-link>
-                        <router-link to="/profile" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>Settings</span>
-                        </router-link>
-                        <router-link to="/profile" class="dropdown-item">
-                            <i class="ni ni-calendar-grid-58"></i>
-                            <span>Activity</span>
-                        </router-link>
-                        <router-link to="/profile" class="dropdown-item">
-                            <i class="ni ni-support-16"></i>
-                            <span>Support</span>
+                            <span>Mi Perfil</span>
                         </router-link>
                         <div class="dropdown-divider"></div>
                         <a href="#!" class="dropdown-item">
                             <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
+                            <span>Salir</span>
                         </a>
                     </base-dropdown>
                 </ul>
@@ -95,6 +85,16 @@
     components: {
       NavbarToggleButton
     },
+    data() {
+      return {
+        fechaActual: ''
+      }
+    },
+    computed: {
+      hora() {
+        return this.fechaActual
+      },
+    },
     props: {
       logo: {
         type: String,
@@ -118,12 +118,20 @@
       },
       showSidebar() {
         this.$sidebar.displaySidebar(true)
+      },
+      fechaAc(){
+        setInterval(() => {
+          this.fechaActual = new Date().getHours() + ':' + new Date().getMinutes() + ':'+ new Date().getSeconds()
+        },1000)
       }
     },
     beforeDestroy() {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.showSidebar = false;
       }
+    },
+    mounted() {
+      this.fechaAc()
     }
   };
 </script>

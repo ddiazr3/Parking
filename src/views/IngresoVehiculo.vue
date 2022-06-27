@@ -190,13 +190,6 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "datatables.net-bs4/css/dataTables.bootstrap4.min.css";
 import "datatables.net-bs4/js/dataTables.bootstrap4"
-import "datatables.net-buttons-dt/js/buttons.dataTables";
-import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
-import "datatables.net-buttons/js/buttons.html5.min.js";
-import "datatables.net-buttons/js/buttons.html5";
-import "datatables.net-buttons/js/buttons.print";
-import "datatables.net-buttons/js/dataTables.buttons";
-import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
 
 
 import $ from "jquery";
@@ -233,23 +226,8 @@ export default {
                 "bDestroy": true,
                 "bSort": false,
             },
-            dom: 'Bfrtip',
-            buttons: [
-            'copyHtml5',
-            'excel',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
+          "lengthMenu": [10,25,50]
         });
-
-        /* new $.fn.dataTable.Buttons(table, {
-             buttons: [
-                 'copy', 'excel', 'pdf'
-             ]
-         });
-
-         table.buttons().container()
-             .appendTo($('.col-sm-6:eq(0)', table.table().container()));*/
     }
 };
 </script>
@@ -258,5 +236,9 @@ export default {
 .el-table .cell {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+div.dataTables_length select {
+  width: 60px !important;
 }
 </style>

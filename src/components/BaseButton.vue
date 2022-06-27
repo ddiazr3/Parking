@@ -7,6 +7,7 @@
     :variant="!outline ? type : `outline-${type}`"
     :size="size"
     :block="block"
+    :title="title"
     :class="[
       { 'rounded-circle': round },
       { 'btn-wd': wide },
@@ -31,6 +32,11 @@ export default {
     loading: Boolean,
     wide: Boolean,
     disabled: Boolean,
+    title:{
+      type: String,
+      default: '',
+      description: 'Titulos con tooltip'
+    },
     type: {
       type: String,
       default: 'default',
