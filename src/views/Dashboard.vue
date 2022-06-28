@@ -86,6 +86,7 @@
       </b-row>
       <!-- End charts-->
 
+<!--      <button @click="prueba">Prueba</button>-->
     </b-container>
 
   </div>
@@ -103,6 +104,9 @@
   // Tables
   import SocialTrafficTable from './Dashboard/SocialTrafficTable';
   import PageVisitsTable from './Dashboard/PageVisitsTable';
+
+  import axios from "axios";
+  import io from 'socket.io-client'
 
   export default {
     components: {
@@ -141,7 +145,8 @@
             }]
           },
           extraOptions: chartConfigs.blueChartOptions
-        }
+        },
+        socket: io(`${process.env.VUE_APP_BACKEND_URL}`)
       };
     },
     methods: {
@@ -157,10 +162,21 @@
         };
         this.bigLineChart.chartData = chartData;
         this.bigLineChart.activeIndex = index;
-      }
+      },
+      // prueba(){
+      //   axios.get(`${process.env.VUE_APP_BACKEND_URL}/login`)
+      //     .then(resp => {
+      //       console.log("respuesta "+resp.data)
+      //     }).catch((err) => {
+      //     console.error(err)
+      //   })
+      // }
     },
     mounted() {
       this.initBigChart(0);
+      // this.socket.on('news', (data) => {
+      //   console.log(data)
+      // })
     }
   };
 </script>
