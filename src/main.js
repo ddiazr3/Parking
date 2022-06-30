@@ -24,6 +24,12 @@ import dontenv from 'dotenv'
 // router setup
 import router from './routes/router';
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+Vue.use(VueSweetalert2)
+
+import vuealert from './plugins/sweetalert'
+
 // Vue.use(VueSocketIo, Socket)
 
 moment.locale('es')

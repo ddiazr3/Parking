@@ -9,98 +9,129 @@
             <h3 v-if="!$route.params.id ">Crear Usuario</h3>
             <h3 v-if="$route.params.id">Editar Usuario</h3>
           </b-col>
-         <b-col lg="8" class="text-right">
-<!--           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">-->
-<!--             <route-breadcrumb></route-breadcrumb>-->
-<!--           </nav>-->
-         </b-col>
+          <b-col lg="8" class="text-right">
+            <!--           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">-->
+            <!--             <route-breadcrumb></route-breadcrumb>-->
+            <!--           </nav>-->
+          </b-col>
         </b-row>
-        <b-form @submit.prevent="updateProfile">
-          <h6 class="heading-small text-muted mb-4">Información del usuario</h6>
-          <b-row>
-            <b-col lg="4">
-              <base-input
-                type="text"
-                label="Nombre"
-                placeholder="Nombre"
-              >
-              </base-input>
-            </b-col>
-            <b-col lg="4">
-              <base-input
-                type="text"
-                label="Direción"
-                placeholder="Dirección"
-              >
-              </base-input>
-            </b-col>
-            <b-col lg="4">
-              <base-input
-                type="number"
-                label="Télefono"
-                placeholder="Télefono"
-              >
-              </base-input>
-            </b-col>
-            <b-col lg="4">
-              <base-input
-                type="text"
-                label="DPI"
-                placeholder="DPI"
-              >
-              </base-input>
-            </b-col>
+        <validation-observer v-slot="{handleSubmit}" ref="formValidator">
+          <b-form @submit.prevent="handleSubmit(guardar)">
+            <h6 class="heading-small text-muted mb-4">Información del usuario</h6>
+            <b-row>
+              <b-col lg="4">
+                <base-input
+                  type="text"
+                  label="Nombre"
+                  name="Nombre"
+                  placeholder="Nombre"
+                  :rules="{required: true, min: 6}"
+                  v-model="usuario.nombre"
+                >
+                </base-input>
+              </b-col>
+              <b-col lg="4">
+                <base-input
+                  type="text"
+                  label="Direción"
+                  name="Direción"
+                  placeholder="Dirección"
+                  :rules="{required: true, min: 6}"
+                  v-model="usuario.direccion"
+                >
+                </base-input>
+              </b-col>
+              <b-col lg="4">
+                <base-input
+                  type="number"
+                  label="Télefono"
+                  name="Telefono"
+                  placeholder="Télefono"
+                  v-model="usuario.telefono"
+                  :rules="{required: true, min: 8}"
+                >
+                </base-input>
+              </b-col>
+              <b-col lg="4">
+                <base-input
+                  type="text"
+                  label="DPI"
+                  placeholder="DPI"
+                  v-model="usuario.dpi"
+                >
+                </base-input>
+              </b-col>
 
-            <b-col lg="4">
-              <base-input
-                type="email"
-                label="Correo"
-                placeholder="xxx@gmail.com"
-              >
-              </base-input>
-            </b-col>
-            <b-col lg="4">
-              <base-input label="Empresa">
-                <select class="form-control">
-                  <option>Rol 1</option>
-                  <option>Rol 2</option>
-                </select>
-              </base-input>
-            </b-col>
-            <b-col lg="4">
-              <base-input label="Empresa">
-                <select class="form-control" multiple>
-                  <option>Empresa 1</option>
-                  <option>Empresa 2</option>
-                </select>
-              </base-input>
-            </b-col>
+              <b-col lg="4">
+                <base-input
+                  type="email"
+                  label="Correo"
+                  name="Correo"
+                  placeholder="xxx@gmail.com"
+                  :rules="{required: true, email: true}"
+                  v-model="usuario.email"
+                >
+                </base-input>
+              </b-col>
+              <b-col lg="4">
+                <base-input label="Empresa">
+                  <select class="form-control">
+                    <option>Rol 1</option>
+                    <option>Rol 2</option>
+                  </select>
+                </base-input>
+              </b-col>
+              <b-col lg="4">
+                <base-input label="Empresa">
+                  <select class="form-control" multiple>
+                    <option>Empresa 1</option>
+                    <option>Empresa 2</option>
+                  </select>
+                </base-input>
+              </b-col>
 
-            <b-col lg="4">
-              <base-input
-                type="password"
-                label="Contraseña"
-                placeholder="xxx@gmail.com"
-              >
-              </base-input>
-            </b-col>
-            <b-col lg="4">
-              <base-input
-                type="password"
-                label="Confirmar Contraseña"
-                placeholder="xxx@gmail.com"
-              >
-              </base-input>
-            </b-col>
+              <b-col lg="4">
+                <base-input
+                  :type="!typePassword ? 'password':'text'"
+                  label="Contraseña"
+                  name="Contraseña"
+                  placeholder="Contraseña"
+                  v-model="usuario.password"
+                  :rules="{required: true, min: 8}"
+                  appendIcon="fas fa-eye"
+                >
+                  <div slot="append">
+                    <i :class="!typePassword ? `fas fa-eye` : `fas fa-eye-slash`" @click="ver(1)"></i>
+                  </div>
+                </base-input>
+              </b-col>
+              <b-col lg="4">
+                <base-input
+                  :type="!typeRePassword ? 'password':'text'"
+                  label="Confirmar Contraseña"
+                  name="Confirmar"
+                  placeholder="Confirmar Contraseña"
+                  v-model="repassword"
+                  :rules="{required: true, min: 8}"
+                >
+                  <div slot="append">
+                    <i :class="!typeRePassword ? `fas fa-eye` : `fas fa-eye-slash`" @click="ver(2)"></i>
+                  </div>
+                </base-input>
+              </b-col>
 
-          </b-row>
-          <div class="text-left">
-            <base-button  v-if="!$route.params.id " type="success" native-type="submit" class="my-4">Guardar</base-button>
-            <base-button v-else type="success" native-type="submit" class="my-4">Actualizar</base-button>
-          </div>
+            </b-row>
+            <div class="text-left">
+              <base-button v-if="!$route.params.id " type="success" native-type="submit" class="my-4">Guardar
+              </base-button>
+              <base-button v-else type="success" native-type="submit" class="my-4">Actualizar</base-button>
+            </div>
 
-        </b-form>
+          </b-form>
+        </validation-observer>
       </card>
+
+
       <!-- End charts-->
     </b-container>
   </div>
@@ -113,7 +144,12 @@ import Card from '@/components/Cards/Card.vue';
 import BaseInput from '@/components/Inputs/BaseInput.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import RouteBreadcrumb from "@/components/Breadcrumb/RouteBreadcrumb";
+import {mapActions, mapState} from "vuex";
+import Sweetalert from "@/plugins/sweetalert";
+import {getUsuario} from "@/modules/Administracion/usuario/actions";
+
 export default {
+  mixins: [Sweetalert],
   components: {
     RouteBreadcrumb,
     Card,
@@ -122,10 +158,47 @@ export default {
   },
   data() {
     return {
-      currentPage: 1
+      currentPage: 1,
+      repassword: null,
+      typePassword : false,
+      typeRePassword :false
     };
   },
-  methods: {}
+  methods: {
+    ...mapActions('usuarios', ['getUsuarios', 'saveUsuarios','clearUsuario','getUsuario']),
+    async guardar () {
+      if (this.usuario.password != this.repassword) {
+        this.alertError({text: 'Las contraseñas son distintas'})
+      }
+      const resultado = await this.saveUsuarios(this.usuario)
+
+      if(resultado.error){
+        this.alertError({text: process.env.VUE_APP_MESSAGE})
+      }else{
+        this.alertSuccess({text: 'Usuario almacenado con exito'})
+        this.clearUsuario()
+        this.$router.push('/usuarios')
+      }
+
+    },
+    ver(input){
+      if(input == 1){
+        this.typePassword = !this.typePassword
+      }else{
+        this.typeRePassword = !this.typeRePassword
+      }
+    }
+  },
+  computed: {
+    ...mapState('usuarios', ['usuario'])
+  },
+  mounted() {
+    if(this.$route.params.id){
+      this.getUsuario(this.$route.params.id)
+    }else{
+      this.clearUsuario()
+    }
+  }
 };
 </script>
 

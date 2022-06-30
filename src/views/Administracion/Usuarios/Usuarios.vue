@@ -53,24 +53,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr v-for="user in usuarios">
               <td>
-                <router-link to="/usuarios/edit/1" aria-current="page"  class="btn btn-warning btn-sm h4 mb-0 text-white  d-none d-lg-inline-block active router-link-active">
+                <router-link :to="`/usuarios/edit/${user._id}`" aria-current="page"  class="btn btn-warning btn-sm h4 mb-0 text-white  d-none d-lg-inline-block active router-link-active">
                 <span class="btn-inner--icon">
                                         <i class="fas fa-pen"></i>
                                     </span>
                 </router-link>
-                <base-button icon type="danger" size="sm" title="Eliminar">
+                <base-button icon type="danger" size="sm" title="Eliminar" @click="eliminarUsuario(user._id)">
                                     <span class="btn-inner--icon">
                                         <i class="fas fa-trash"></i>
                                     </span>
                 </base-button>
               </td>
-              <td>User 1</td>
-              <td>correo 1</td>
-              <td>554645564</td>
+              <td v-text="user.nombre"></td>
+              <td v-text="user.email"></td>
+              <td v-text="user.telefono"></td>
               <td>
-                <b-badge variant="success">Activo</b-badge>
+                <b-badge variant="success" v-if="user.activo">Activo</b-badge>
+                <b-badge variant="danger" v-else>Desactivado</b-badge>
               </td>
             </tr>
             </tbody>
@@ -95,8 +96,11 @@ import * as chartConfigs from '@/components/Charts/config';
 import Card from '@/components/Cards/Card.vue';
 import BaseInput from '@/components/Inputs/BaseInput.vue';
 import BaseButton from '@/components/BaseButton.vue';
+import { mapState, mapMutations,mapActions, mapGetters } from 'vuex'
+import Sweetalert from "@/plugins/sweetalert";
 
 export default {
+  mixins: [Sweetalert],
   components: {
     Card,
     BaseInput,
@@ -108,7 +112,24 @@ export default {
       nombre: ''
     };
   },
-  methods: {}
+  methods: {
+    ...mapActions('usuarios',['getUsuarios','deleteUsuario']),
+    eliminarUsuario(id){
+     this.confirm({
+        text: 'Esta seguro de eliminar usuarios'
+      }).then((resp)=>{
+       if(resp.isConfirmed){
+         this.deleteUsuario(id);
+       }
+     })
+    }
+  },
+  computed: {
+    ...mapState('usuarios',['usuarios'])
+  },
+  mounted() {
+    this.getUsuarios()
+  }
 };
 </script>
 
