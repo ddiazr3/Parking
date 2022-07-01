@@ -22,19 +22,19 @@ export default {
       type: Number,
       default: 0,
       description:
-        "Pagination page count. This should be specified in combination with perPage"
+        "Recuento de páginas de paginación. Esto debe especificarse en combinación con perPage"
     },
     perPage: {
       type: Number,
       default: 10,
       description:
-        "Pagination per page. Should be specified with total or pageCount"
+        "Paginación por página. Debe especificarse con total o pageCount"
     },
     total: {
       type: Number,
       default: 0,
       description:
-        "Can be specified instead of pageCount. The page count in this case will be total/perPage"
+        "Se puede especificar en lugar de pageCount. El recuento de páginas en este caso será total/por página"
     },
     value: {
       type: Number,

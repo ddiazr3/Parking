@@ -16,7 +16,7 @@
           </b-col>
         </b-row>
         <validation-observer v-slot="{handleSubmit}" ref="formValidator">
-          <b-form @submit.prevent="handleSubmit(guardar)">
+          <b-form @submit.prevent="handleSubmit(guardar)" autocomplete="off">
             <h6 class="heading-small text-muted mb-4">Información del usuario</h6>
             <b-row>
               <b-col lg="4">
@@ -97,7 +97,7 @@
                   name="Contraseña"
                   placeholder="Contraseña"
                   v-model="usuario.password"
-                  :rules="{required: true, min: 8}"
+                  :rules="{required: !isEdit ? true : false, min: 8}"
                   appendIcon="fas fa-eye"
                 >
                   <div slot="append">
@@ -112,7 +112,7 @@
                   name="Confirmar"
                   placeholder="Confirmar Contraseña"
                   v-model="repassword"
-                  :rules="{required: true, min: 8}"
+                  :rules="{required: !isEdit ? true : false, min: 8}"
                 >
                   <div slot="append">
                     <i :class="!typeRePassword ? `fas fa-eye` : `fas fa-eye-slash`" @click="ver(2)"></i>
@@ -160,31 +160,46 @@ export default {
     return {
       currentPage: 1,
       repassword: null,
-      typePassword : false,
-      typeRePassword :false
+      typePassword: false,
+      typeRePassword: false,
+      isEdit: false
     };
   },
   methods: {
-    ...mapActions('usuarios', ['getUsuarios', 'saveUsuarios','clearUsuario','getUsuario']),
-    async guardar () {
+    ...mapActions('usuarios', ['getUsuarios', 'saveUsuarios','updateUsuarios', 'clearUsuario', 'getUsuario']),
+    async guardar() {
       if (this.usuario.password != this.repassword) {
         this.alertError({text: 'Las contraseñas son distintas'})
       }
-      const resultado = await this.saveUsuarios(this.usuario)
-
-      if(resultado.error){
-        this.alertError({text: process.env.VUE_APP_MESSAGE})
+      if(this.isEdit){
+          this.updateUsuarios(this.usuario)
+            .then((res) => {
+              this.alertSuccess({text: 'Usuario actualizado con exito'})
+              this.clearUsuario()
+              this.$router.push('/usuarios')
+            })
+            .catch(error => {
+              this.alertError({text: error.response.data.error})
+              console.log(error)
+            })
       }else{
-        this.alertSuccess({text: 'Usuario almacenado con exito'})
-        this.clearUsuario()
-        this.$router.push('/usuarios')
+        this.saveUsuarios(this.usuario)
+          .then((res) => {
+            this.alertSuccess({text: 'Usuario almacenado con exito'})
+            this.clearUsuario()
+            this.$router.push('/usuarios')
+          })
+          .catch(error => {
+            this.alertError({text: error.response.data.error})
+            console.log(error)
+          })
       }
 
     },
-    ver(input){
-      if(input == 1){
+    ver(input) {
+      if (input == 1) {
         this.typePassword = !this.typePassword
-      }else{
+      } else {
         this.typeRePassword = !this.typeRePassword
       }
     }
@@ -193,9 +208,10 @@ export default {
     ...mapState('usuarios', ['usuario'])
   },
   mounted() {
-    if(this.$route.params.id){
+    if (this.$route.params.id) {
+      this.isEdit = true;
       this.getUsuario(this.$route.params.id)
-    }else{
+    } else {
       this.clearUsuario()
     }
   }

@@ -17,5 +17,11 @@ export default {
   rolesUsuario: [],
   empresasUsuario: [],
   totalPage: 0,
-  page: 1
+  page: 0,
+  perPage: 10,
+  searchData: {
+    nombre: null,
+    correo: null,
+    telefono: null
+  },
 }
