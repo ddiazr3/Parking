@@ -170,6 +170,7 @@ export default {
     async guardar() {
       if (this.usuario.password != this.repassword) {
         this.alertError({text: 'Las contraseñas son distintas'})
+        return
       }
       if(this.isEdit){
           this.updateUsuarios(this.usuario)

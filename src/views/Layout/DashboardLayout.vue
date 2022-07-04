@@ -110,13 +110,18 @@ export default {
           ]
         },
         {
-          name: 'Catalogos',
+          name: 'Catálogos',
           icon: 'ni ni-circle-08 text-pink',
           children: [{
-            name: 'Placas',
+            name: 'Tipos de Placas',
             path: '/placas',
-            icon: 'ni ni-key-25 text-info'
-          }]
+            icon: 'fas fa-filter text-info'
+          },
+            {
+              name: 'Módulo',
+              path: '/modulos',
+              icon: 'fas fa-bars text-success'
+            }]
         }
 
       ]

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading-panel :loading="isLoading"></loading-panel>
   <router-view></router-view>
   </div>
 </template>
@@ -7,9 +8,15 @@
 <script>
 import axios from "axios";
 import io from 'socket.io-client'
+import LoadingPanel from "@/components/LoadingPanel";
+import {mapState} from "vuex";
 
 export default {
   components:{
+    LoadingPanel
+  },
+  computed:{
+    ...mapState(['isLoading'])
   },
   data(){
     return{

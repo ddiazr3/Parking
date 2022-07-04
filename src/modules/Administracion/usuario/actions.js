@@ -5,14 +5,17 @@ const apiUrl = `${process.env.VUE_APP_BACKEND_URL}usuarios`
 //Obtenemos todos los usuarios ya sea al inicio o con el filtro
 export async function getUsuarios({commit}, url) {
   let urlInstance = apiUrl
+  commit('setLoading', true, { root: true })
   if (url) {
     urlInstance = apiUrl + '?' + url
   }
   try {
     const data = await axios.get(`${apiUrl}?${url}`)
-    commit('setUsuarios', data)
+      commit('setUsuarios', data)
   } catch (e) {
     console.error(e.response.data.error)
+  }finally {
+    commit('setLoading', false, { root: true })
   }
 }
 

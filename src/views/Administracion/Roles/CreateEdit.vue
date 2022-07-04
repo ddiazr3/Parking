@@ -31,7 +31,7 @@
             </b-col>
           </b-row>
           <div class="dropdown-divider"></div>
-          <h4 class="heading-small text-muted mb-4">Modulos</h4>
+          <h4 class="heading-small text-muted mb-4">Módulos</h4>
           <b-row >
             <b-col lg="2" class="pt-3">
               <card>
