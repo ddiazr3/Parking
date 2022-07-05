@@ -76,7 +76,6 @@ import "datatables.net-bs4/js/dataTables.bootstrap4"
 
 import $ from "jquery";
 import {mapActions, mapState} from "vuex";
-import {getModulos} from "@/modules/Catálogos/Módulos/actions";
 import Sweetalert from "@/plugins/sweetalert";
 
 export default {

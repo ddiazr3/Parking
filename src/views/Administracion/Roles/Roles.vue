@@ -4,7 +4,8 @@
     <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
       <!-- Card stats -->
 
-      <router-link to="/roles/create" aria-current="page" class="btn btn-warning h4 mb-3 text-white  router-link-active">
+      <router-link to="/roles/create" aria-current="page"
+                   class="btn btn-warning h4 mb-3 text-white  router-link-active">
         Rol Nuevo
         <span class="btn-inner--icon">
                   <i class="fas fa-plus"></i>
@@ -15,28 +16,8 @@
     <!--Charts-->
     <b-container fluid class="mt--7">
       <card>
-        <b-row slot="header">
-          <b-col lg="3">
-            <base-input type="text" label="Nombre"></base-input>
-          </b-col>
-
-          <b-col lg="3">
-            <br>
-            <base-button type="info" icon size="lg" title="Buscar">
-                  <span class="btn-inner--icon">
-                  <i class="fas fa-search"></i>
-                  </span>
-            </base-button>
-            <base-button type="success" icon size="lg" title="Exportar Excel">
-                  <span class="btn-inner--icon">
-                  <i class="fas fa-file-excel"></i>
-                  </span>
-            </base-button>
-          </b-col>
-        </b-row>
-
         <div class="table-responsive">
-          <table class="table table-hover table-bordered" id="datatable">
+          <table class="table table-hover table-bordered table-height" id="datatable">
             <thead>
             <tr>
               <th>Opciones</th>
@@ -46,32 +27,33 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr v-for="rol in rolesAll">
               <td>
-                <router-link to="/roles/edit/1" aria-current="page"  class="btn btn-warning btn-sm h4 mb-0 text-white  d-none d-lg-inline-block active router-link-active">
+                <router-link :to="`/roles/edit/${rol._id}`" aria-current="page"
+                             class="btn btn-warning btn-sm h4 mb-0 text-white  d-none d-lg-inline-block active router-link-active">
                 <span class="btn-inner--icon">
                                         <i class="fas fa-pen"></i>
                                     </span>
                 </router-link>
-                <base-button icon type="danger" size="sm" title="Eliminar">
+                <base-button icon type="danger" size="sm" title="Eliminar"
+                             @click="eliminarRol(rol._id)">
                                     <span class="btn-inner--icon">
                                         <i class="fas fa-trash"></i>
                                     </span>
                 </base-button>
+
+
               </td>
-              <td>Rol 1</td>
-              <td>Desc 1</td>
+              <td v-text="rol.role"></td>
+              <td v-text="rol.description"></td>
               <td>
-                <b-badge variant="success">Activo</b-badge>
-                <b-badge variant="danger">Desactivo</b-badge>
+                <b-badge v-if="rol.estado" variant="success">Activo</b-badge>
+                <b-badge v-else variant="danger">Desactivo</b-badge>
               </td>
             </tr>
             </tbody>
 
           </table>
-          <b-card-footer class="py-4 d-flex justify-content-center">
-            <base-pagination v-model="currentPage" :per-page="10" :total="12"></base-pagination>
-          </b-card-footer>
         </div>
 
       </card>
@@ -89,7 +71,19 @@ import Card from '@/components/Cards/Card.vue';
 import BaseInput from '@/components/Inputs/BaseInput.vue';
 import BaseButton from '@/components/BaseButton.vue';
 
+import "jszip/dist/jszip.min.js";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import "datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+import "datatables.net-bs4/js/dataTables.bootstrap4"
+
+
+import $ from "jquery";
+import {mapActions, mapState} from "vuex";
+import Sweetalert from "@/plugins/sweetalert";
+
 export default {
+  mixins: [Sweetalert],
   components: {
     Card,
     BaseInput,
@@ -100,7 +94,47 @@ export default {
       currentPage: 1
     };
   },
-  methods: {}
+  computed: {
+    ...mapState('roles', ['rolesAll'])
+  },
+  methods: {
+    ...mapActions('roles', ['getRoles','deleteRol']),
+    eliminarRol(id){
+      this.confirm({
+        text: 'Esta seguro de eliminar el rol'
+      }).then((resp) => {
+        if (resp.isConfirmed) {
+          this.deleteRol(id);
+        }
+      })
+    }
+  },
+  mounted() {
+    this.getRoles()
+    setTimeout(() => {
+      $("#datatable").DataTable({
+        "language": {
+          "lengthMenu": "Cantidad _MENU_ Paginas",
+          "zeroRecords": "Nothing found - sorry",
+          "info": "No. de pagina _PAGE_ de _PAGES_",
+          "infoEmpty": "No hay informacion",
+          "infoFiltered": "(filtered from _MAX_ total records)",
+          "search": "Buscar",
+          "emptyTable": "No hay información",
+          "paginate": {
+            "first": "Inicio",
+            "last": "Fin",
+            "next": ">",
+            "previous": "<"
+          },
+          "bDestroy": true,
+          "bSort": false,
+        },
+        "pageLength": 15,
+        "lengthMenu": [10, 25, 50]
+      });
+    }, 1000)
+  }
 };
 </script>
 
