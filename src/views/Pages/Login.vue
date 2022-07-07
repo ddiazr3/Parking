@@ -85,20 +85,33 @@
   </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        model: {
-          email: '',
-          password: '',
-          rememberMe: false
-        }
-      };
-    },
-    methods: {
-      onSubmit() {
-        // this will be called only after form is valid. You can do api call here to login
+import axios from "axios";
+import Sweetalert from "@/plugins/sweetalert";
+import {mapActions} from "vuex";
+import {logueo} from "@/modules/Login/actions";
+
+export default {
+  mixins: [Sweetalert],
+  data() {
+    return {
+      model: {
+        email: '',
+        password: '',
+        rememberMe: false
       }
+    };
+  },
+  methods: {
+    ...mapActions('login',['logueo']),
+    onSubmit() {
+      this.logueo(this.model)
+        .then(resp => {
+          this.$router.push('/')
+      }).catch(error => {
+        console.log(error)
+        this.alertError({text: error.response.data.error})
+      })
     }
-  };
+  }
+};
 </script>

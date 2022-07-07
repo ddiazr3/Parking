@@ -89,7 +89,7 @@ import BaseButton from '@/components/BaseButton.vue';
 import {mapActions, mapState} from "vuex";
 import Sweetalert from "@/plugins/sweetalert";
 import {saveRoles} from "@/modules/Administracion/roles/actions";
-
+import { validaError } from '@/util/dataAxios'
 export default {
   mixins: [Sweetalert],
   components: {
@@ -123,6 +123,7 @@ export default {
             this.$router.push('/roles')
           })
           .catch(error => {
+            validaError(error)
             this.alertError({text: error.response.data.error})
           })
       }else{
@@ -133,7 +134,8 @@ export default {
             this.$router.push('/roles')
           })
           .catch(error => {
-            this.alertError({text: error.response.data.error})
+              validaError(error)
+              this.alertError({text: error.response.data.error})
           })
       }
 

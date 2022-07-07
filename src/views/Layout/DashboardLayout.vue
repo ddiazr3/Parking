@@ -114,7 +114,7 @@ export default {
           icon: 'ni ni-circle-08 text-pink',
           children: [{
             name: 'Tipos de Placas',
-            path: '/placas',
+            path: '/tipoplacas',
             icon: 'fas fa-filter text-info'
           },
             {

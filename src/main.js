@@ -20,6 +20,7 @@ import App from './App.vue';
 import store from './store'
 import moment from 'moment'
 import dontenv from 'dotenv'
+import CryptoJS from 'crypto-js'
 
 
 // router setup
@@ -38,6 +39,8 @@ moment.locale('es')
 Vue.use(dontenv)
 Vue.use(DashboardPlugin);
 Vue.prototype.moment = moment
+Vue.prototype.$CryptoJS = CryptoJS
+Vue.prototype.$keyCryp = '111222333444'
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
