@@ -49,3 +49,8 @@ export function clearSearch(state) {
   }
 }
 
+export function SETCATALOGOS(state, resp) {
+  state.roles = resp.data.roles
+  state.empresas = resp.data.empresas
+}
+

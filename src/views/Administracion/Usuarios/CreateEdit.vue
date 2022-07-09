@@ -25,7 +25,7 @@
                   label="Nombre"
                   name="Nombre"
                   placeholder="Nombre"
-                  :rules="{required: true, min: 6}"
+                  :rules="{required: true, min: 2}"
                   v-model="usuario.nombre"
                 >
                 </base-input>
@@ -36,7 +36,7 @@
                   label="Direción"
                   name="Direción"
                   placeholder="Dirección"
-                  :rules="{required: true, min: 6}"
+                  :rules="{required: true, min: 2}"
                   v-model="usuario.direccion"
                 >
                 </base-input>
@@ -74,18 +74,18 @@
                 </base-input>
               </b-col>
               <b-col lg="4">
-                <base-input label="Empresa">
-                  <select class="form-control">
-                    <option>Rol 1</option>
-                    <option>Rol 2</option>
+                <base-input label="Rol">
+                  <select class="form-control" v-model="usuario.roleid">
+
+                    <option v-for="r in roles" v-text="r.role" :value="r._id"></option>
+
                   </select>
                 </base-input>
               </b-col>
               <b-col lg="4">
                 <base-input label="Empresa">
-                  <select class="form-control" multiple>
-                    <option>Empresa 1</option>
-                    <option>Empresa 2</option>
+                  <select class="form-control" multiple v-model="usuario.empresasids">
+                    <option v-for="emp in empresas" v-text="emp.empresa" :value="emp._id"></option>
                   </select>
                 </base-input>
               </b-col>
@@ -146,7 +146,7 @@ import BaseButton from '@/components/BaseButton.vue';
 import RouteBreadcrumb from "@/components/Breadcrumb/RouteBreadcrumb";
 import {mapActions, mapState} from "vuex";
 import Sweetalert from "@/plugins/sweetalert";
-import {getUsuario} from "@/modules/Administracion/usuario/actions";
+import { validaError } from '@/util/dataAxios'
 
 export default {
   mixins: [Sweetalert],
@@ -161,36 +161,54 @@ export default {
       currentPage: 1,
       repassword: null,
       typePassword: false,
-      typeRePassword: false,
+      typeRePassword: "",
       isEdit: false
     };
   },
   methods: {
-    ...mapActions('usuarios', ['getUsuarios', 'saveUsuarios','updateUsuarios', 'clearUsuario', 'getUsuario']),
+    ...mapActions('usuarios', ['getUsuarios', 'saveUsuarios', 'updateUsuarios', 'clearUsuario', 'getUsuario','catalogos']),
     async guardar() {
-      if (this.usuario.password != this.repassword) {
-        this.alertError({text: 'Las contraseñas son distintas'})
-        return
+
+      if (this.isEdit) {
+        if (this.usuario.password) {
+          if (this.usuario.password !== this.repassword) {
+            this.alertError({text: 'Las contraseñas son distintas'})
+            return
+          }
+        }
+      } else {
+        if (!this.usuario.password) {
+          this.alertError({text: 'Ingrese contraseña'})
+          return
+        }else{
+          if (this.usuario.password !== this.repassword) {
+            this.alertError({text: 'Las contraseñas son distintas'})
+            return
+          }
+        }
       }
-      if(this.isEdit){
-          this.updateUsuarios(this.usuario)
-            .then((res) => {
-              this.alertSuccess({text: 'Usuario actualizado con exito'})
-              this.clearUsuario()
-              this.$router.push('/usuarios')
-            })
-            .catch(error => {
-              this.alertError({text: error.response.data.error})
-              console.log(error)
-            })
-      }else{
+      if (this.isEdit) {
+        this.updateUsuarios(this.usuario)
+          .then((res) => {
+            this.alertSuccess({text: 'Usuario actualizado con exito'})
+            this.clearUsuario()
+            this.$router.push('/usuarios')
+          })
+          .catch(error => {
+            validaError(error)
+            this.alertError({text: error.response.data.error})
+            console.log(error)
+          })
+      } else {
         this.saveUsuarios(this.usuario)
           .then((res) => {
+            console.log("llego bbien")
             this.alertSuccess({text: 'Usuario almacenado con exito'})
             this.clearUsuario()
             this.$router.push('/usuarios')
           })
           .catch(error => {
+            validaError(error)
             this.alertError({text: error.response.data.error})
             console.log(error)
           })
@@ -206,9 +224,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('usuarios', ['usuario'])
+    ...mapState('usuarios', ['usuario','empresas','roles'])
   },
   mounted() {
+    this.catalogos()
     if (this.$route.params.id) {
       this.isEdit = true;
       this.getUsuario(this.$route.params.id)

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { dataHeader } from '@/util/dataAxios'
 
 const apiUrl = `${process.env.VUE_APP_BACKEND_URL}modulos`
 
@@ -6,7 +7,8 @@ const apiUrl = `${process.env.VUE_APP_BACKEND_URL}modulos`
 export async function getModulos({commit}, url) {
   try {
     commit('setLoading', true, { root: true })
-    const data = await axios.get(`${apiUrl}`)
+    const header = dataHeader()
+    const data = await axios.get(`${apiUrl}`,header)
       commit('setModulos', data)
   } catch (e) {
     console.error(e.response.data.error)
@@ -20,7 +22,8 @@ export async function getModulos({commit}, url) {
 //Obtenemos catalogos a necesitar
 export async function getPermisos({commit}, url) {
   try {
-    const data = await axios.get(`${apiUrl}/permisos`)
+    const header = dataHeader()
+    const data = await axios.get(`${apiUrl}/permisos`,header)
     commit('setPermisos', data)
   } catch (e) {
     console.error(e.response.data.error)
@@ -31,23 +34,27 @@ export async function getPermisos({commit}, url) {
 
 //almacenamos el modelo
 export async function saveModulo({commit}, modulo) {
-  return axios.post(apiUrl, modulo)
+  const header = dataHeader()
+  return axios.post(apiUrl, modulo,header)
 }
 
 //actualizamos el modelo
 export async function updateModulo({commit}, modulo) {
-  return axios.put(`${apiUrl}/${modulo._id}`, modulo)
+  const header = dataHeader()
+  return axios.put(`${apiUrl}/${modulo._id}`, modulo,header)
 }
 
 //obtenemos un modelo para el edit
 export async function getModelo({commit}, id) {
-  const data = await axios.get(`${apiUrl}/edit/${id}`)
+  const header = dataHeader()
+  const data = await axios.get(`${apiUrl}/edit/${id}`,header)
   commit("setModelo", data)
 }
 
 //desactivamos usuario
 export async function deleteModulo({commit}, id) {
-  const data = await axios.delete(`${apiUrl}/${id}`)
+  const header = dataHeader()
+  const data = await axios.delete(`${apiUrl}/${id}`,header)
   commit("deleteModulo", id)
 }
 
