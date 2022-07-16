@@ -3,7 +3,8 @@ export function setRoles(state, resp) {
 }
 
 export function SETMODULOSPERMISOS(state, resp) {
-  state.modulos = resp.data
+  state.modulos = resp.data.modulos
+  state.empresas = resp.data.empresas
 }
 
 export function clearRoles(state) {
@@ -20,7 +21,7 @@ export function clearRoles(state) {
 export function setRole(state, resp) {
   state.role = resp.data.role
   state.role.descripcion = resp.data.role.description
-  state.role.empresasids = []
+  state.role.empresaid = resp.data.role.empresa
   state.role.permisosrole = resp.data.modulopermisos
 }
 

@@ -7,11 +7,10 @@ export default {
     role: null,
     descripcion: null,
     rolmodulopermisos : [],
-    empresasids: [],
+    empresaid: 0,
     permisosrole:[],
   },
-
-  empresasSuper:[],
+  empresas:[],
   modulos:[],
   empresasUsuario: [],
 }

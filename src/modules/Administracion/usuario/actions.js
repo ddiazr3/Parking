@@ -24,7 +24,6 @@ export async function catalogos({commit}, url) {
   try {
     const header = dataHeader()
     const data = await axios.get(`${apiUrl}/catalogos`,header)
-    console.log(data.data)
     commit('SETCATALOGOS', data)
   } catch (e) {
     console.error(e.response.data.error)
@@ -34,7 +33,6 @@ export async function catalogos({commit}, url) {
 //almacenamos el usuario
 export async function saveUsuarios({commit}, usuario) {
   const header = dataHeader()
-  console.log("enviando")
   return axios.post(apiUrl, usuario, header)
 }
 
@@ -75,17 +73,3 @@ export async function clearSearch({commit}) {
   commit('clearSearch')
 }
 
-//exporta los datos del excel
-export async function exporExcel({commit}, url) {
-  let urlInstance = apiUrl
-  if (url) {
-    urlInstance = apiUrl + '?' + url
-  }
-  try {
-    const header = dataHeader()
-    const data = await axios.get(`${apiUrl}?${url}`,header)
-    commit('setUsuarios', data)
-  } catch (e) {
-    console.error(e.response.data.error)
-  }
-}

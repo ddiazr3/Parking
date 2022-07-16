@@ -21,7 +21,9 @@ export function clearUsuario(state) {
 }
 
 export function setUsuario(state, resp) {
-  state.usuario = resp.data
+  state.usuario = resp.data.usuario
+  state.usuario.roleid = resp.data.usuario.role
+  state.usuario.empresasids = resp.data.empresas
   state.usuario.password = null
 }
 

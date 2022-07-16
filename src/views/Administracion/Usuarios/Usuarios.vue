@@ -116,6 +116,7 @@ import Sweetalert from "@/plugins/sweetalert";
 import {activarUsuario, clearSearch} from "@/modules/Administracion/usuario/actions";
 import downloadexcel from "vue-json-excel"
 import axios from "axios";
+import {dataHeader} from "@/util/dataAxios";
 
 export default {
   mixins: [Sweetalert],
@@ -208,11 +209,13 @@ export default {
       }
     },
     async getDataExport(){
+      const header = dataHeader()
+
       if (this.validateSearch()) {
-        const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}usuarios/export?nombre=${this.searchData.nombre}&email=${this.searchData.correo}&telefono=${this.searchData.telefono}`)
+        const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}usuarios/export?nombre=${this.searchData.nombre}&email=${this.searchData.correo}&telefono=${this.searchData.telefono}`,header)
         return response.data
       } else {
-        const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}usuarios/export`)
+        const response = await axios.get(`${process.env.VUE_APP_BACKEND_URL}usuarios/export`,header)
         return response.data
       }
     }

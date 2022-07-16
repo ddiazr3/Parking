@@ -23,6 +23,7 @@
               <th>Opciones</th>
               <th>Nombre</th>
               <th>Descripción</th>
+              <th>Empresas</th>
               <th>Estado</th>
             </tr>
             </thead>
@@ -46,6 +47,7 @@
               </td>
               <td v-text="rol.role"></td>
               <td v-text="rol.description"></td>
+              <td v-text="rol.empresa ? rol.empresa.empresa : ''"></td>
               <td>
                 <b-badge v-if="rol.estado" variant="success">Activo</b-badge>
                 <b-badge v-else variant="danger">Desactivo</b-badge>

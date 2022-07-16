@@ -36,9 +36,9 @@
               </b-col>
               <b-col lg="4">
                 <base-input label="Empresas">
-                  <select class="form-control" multiple v-model="role.empresasids">
-                    <option>E 1</option>
-                    <option>E 2</option>
+                  <select class="form-control" v-model="role.empresaid" name="Empresa"  :rules="{required: true}">
+                    <option value="0">Ninguna</option>
+                    <option v-for="emp in empresas" :value="emp._id" v-text="emp.empresa"></option>
                   </select>
                 </base-input>
               </b-col>
@@ -105,7 +105,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('roles', ['role', 'modulos'])
+    ...mapState('roles', ['role', 'modulos','empresas'])
   },
   methods: {
     ...mapActions('roles', ['getModulosPermisos', 'saveRoles','clearRoles','getRole','updateRole']),
